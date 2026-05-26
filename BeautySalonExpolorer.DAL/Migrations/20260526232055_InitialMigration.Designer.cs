@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeautySalonExpolorer.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260526184401_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260526232055_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
