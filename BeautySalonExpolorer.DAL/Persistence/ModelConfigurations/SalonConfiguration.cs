@@ -4,35 +4,35 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BeautySalonExpolorer.DAL.Persistence.ModelConfigurations;
 
-public class BusinessConfiguration : IEntityTypeConfiguration<Business>
+public class BusinessConfiguration : IEntityTypeConfiguration<Salon>
 {
-    public void Configure(EntityTypeBuilder<Business> builder)
+    public void Configure(EntityTypeBuilder<Salon> builder)
     {
-        builder.HasKey(b => b.BusinessId); 
+        builder.HasKey(s => s.SalonId); 
 
-        builder.Property(b => b.Name)
+        builder.Property(s => s.Name)
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.Property(b => b.Street)
+        builder.Property(s => s.Street)
             .HasMaxLength(100);
 
-        builder.Property(b => b.District)
+        builder.Property(s => s.District)
             .HasMaxLength(50);
 
-        builder.Property(b => b.Phone)
+        builder.Property(s => s.Phone)
             .HasMaxLength(30)
             .IsRequired(false); 
 
-        builder.Property(b => b.Website)
+        builder.Property(s => s.Website)
             .HasMaxLength(500)
             .IsRequired(false);
 
-        builder.Property(b => b.Rating)
+        builder.Property(s => s.Rating)
             .HasColumnType("decimal(2,1)")
             .IsRequired(false);
             
-        builder.Property(b => b.LocationUrl)
+        builder.Property(s => s.LocationUrl)
             .HasMaxLength(500)
             .IsRequired(false);
     }

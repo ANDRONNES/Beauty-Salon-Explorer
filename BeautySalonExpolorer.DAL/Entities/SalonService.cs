@@ -1,11 +1,11 @@
 namespace BeautySalonExpolorer.DAL.Entities;
 
-public class BusinessService
+public class SalonService
 {
     public Guid ServiceId { get; set; }
-    public Guid BusinessId { get; set; }
+    public Guid SalonId { get; set; }
     public decimal? Price { get; set; }
 
     public Service Service { get; set;} = null!;
-    public Business Business { get; set;} = null!;
+    public Salon Salon { get; set;} = null!;
 }

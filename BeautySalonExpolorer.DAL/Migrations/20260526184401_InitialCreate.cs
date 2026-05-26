@@ -12,10 +12,22 @@ namespace BeautySalonExpolorer.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "business",
+                name: "category",
                 columns: table => new
                 {
-                    business_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    category_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_category", x => x.category_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "salon",
+                columns: table => new
+                {
+                    salon_id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     district = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
@@ -27,19 +39,7 @@ namespace BeautySalonExpolorer.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_business", x => x.business_id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "category",
-                columns: table => new
-                {
-                    category_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_category", x => x.category_id);
+                    table.PrimaryKey("pk_salon", x => x.salon_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,48 +55,48 @@ namespace BeautySalonExpolorer.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "businesscategory",
+                name: "saloncategory",
                 columns: table => new
                 {
                     category_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    business_id = table.Column<Guid>(type: "uuid", nullable: false)
+                    salon_id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_businesscategory", x => new { x.business_id, x.category_id });
+                    table.PrimaryKey("pk_saloncategory", x => new { x.salon_id, x.category_id });
                     table.ForeignKey(
-                        name: "fk_businesscategory_business_business_id",
-                        column: x => x.business_id,
-                        principalTable: "business",
-                        principalColumn: "business_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_businesscategory_categories_category_id",
+                        name: "fk_saloncategory_category_category_id",
                         column: x => x.category_id,
                         principalTable: "category",
                         principalColumn: "category_id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_saloncategory_salon_salon_id",
+                        column: x => x.salon_id,
+                        principalTable: "salon",
+                        principalColumn: "salon_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "businessservice",
+                name: "salonservice",
                 columns: table => new
                 {
                     service_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    business_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    salon_id = table.Column<Guid>(type: "uuid", nullable: false),
                     price = table.Column<decimal>(type: "numeric(10,2)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_businessservice", x => new { x.business_id, x.service_id });
+                    table.PrimaryKey("pk_salonservice", x => new { x.salon_id, x.service_id });
                     table.ForeignKey(
-                        name: "fk_businessservice_business_business_id",
-                        column: x => x.business_id,
-                        principalTable: "business",
-                        principalColumn: "business_id",
+                        name: "fk_salonservice_salon_salon_id",
+                        column: x => x.salon_id,
+                        principalTable: "salon",
+                        principalColumn: "salon_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_businessservice_services_service_id",
+                        name: "fk_salonservice_services_service_id",
                         column: x => x.service_id,
                         principalTable: "service",
                         principalColumn: "service_id",
@@ -104,13 +104,13 @@ namespace BeautySalonExpolorer.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_businesscategory_category_id",
-                table: "businesscategory",
+                name: "ix_saloncategory_category_id",
+                table: "saloncategory",
                 column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_businessservice_service_id",
-                table: "businessservice",
+                name: "ix_salonservice_service_id",
+                table: "salonservice",
                 column: "service_id");
         }
 
@@ -118,16 +118,16 @@ namespace BeautySalonExpolorer.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "businesscategory");
+                name: "saloncategory");
 
             migrationBuilder.DropTable(
-                name: "businessservice");
+                name: "salonservice");
 
             migrationBuilder.DropTable(
                 name: "category");
 
             migrationBuilder.DropTable(
-                name: "business");
+                name: "salon");
 
             migrationBuilder.DropTable(
                 name: "service");

@@ -1,8 +1,8 @@
 namespace BeautySalonExpolorer.DAL.Entities;
 
-public class Business
+public class Salon
 {
-    public Guid BusinessId {get; set; } = Guid.NewGuid();
+    public Guid SalonId {get; set; } = Guid.NewGuid();
     public required string Name {get; set;}
     public required string Street {get; set;}
     public required string District {get; set;}
@@ -12,6 +12,6 @@ public class Business
     public int? ReviewsCount {get; set;}
     public string? LocationUrl {get; set;}
 
-    public ICollection<BusinessCategory> Categories {get; set;} = [];
-    public ICollection<BusinessService> Services {get; set;} = [];
+    public ICollection<SalonCategory> Categories {get; set;} = [];
+    public ICollection<SalonService> Services {get; set;} = [];
 }

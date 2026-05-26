@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BeautySalonExpolorer.DAL.Persistence.ModelConfigurations;
 
-public class BusinessServiceConfiguration : IEntityTypeConfiguration<BusinessService>
+public class BusinessServiceConfiguration : IEntityTypeConfiguration<SalonService>
 {
-    public void Configure(EntityTypeBuilder<BusinessService> builder)
+    public void Configure(EntityTypeBuilder<SalonService> builder)
     {
-        builder.HasKey(bs => new { bs.BusinessId, bs.ServiceId });
+        builder.HasKey(ss => new { ss.SalonId, ss.ServiceId });
 
-        builder.Property(bs => bs.Price)
+        builder.Property(ss => ss.Price)
             .HasColumnType("decimal(10,2)");
     }
 }

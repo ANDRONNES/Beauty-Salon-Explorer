@@ -14,7 +14,7 @@ public class DbInitializer
             return;
         }
 
-        if (!await context.Businesses.AnyAsync())
+        if (!await context.Salons.AnyAsync())
         {
             var jsonString = await File.ReadAllTextAsync(jsonFilePath);
             var options = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
@@ -30,7 +30,7 @@ public class DbInitializer
 
             foreach (var dto in salonDtos)
             {
-                var business = new Business
+                var salon = new Salon
                 {
                     Name = dto.Title,
                     Street = dto.Street,
@@ -42,7 +42,7 @@ public class DbInitializer
                     LocationUrl = dto.LocationUrl,
                 };
 
-                context.Add(business);
+                context.Add(salon);
 
                 foreach (var categoryName in dto.Categories)
                 {
@@ -63,12 +63,12 @@ public class DbInitializer
                         categoryCache[categoryName] = category;
                     }
 
-                    var businessCategory = new BusinessCategory
+                    var salonCategory = new SalonCategory
                     {
-                        BusinessId = business.BusinessId,
+                        SalonId = salon.SalonId,
                         CategoryId = category.CategoryId
                     };
-                    context.BusinessCategories.Add(businessCategory);
+                    context.SalonsCategories.Add(salonCategory);
                 }
             }
 

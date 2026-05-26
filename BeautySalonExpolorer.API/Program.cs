@@ -1,5 +1,9 @@
+using BeautySalonExpolorer.BLL.Interfaces;
+using BeautySalonExpolorer.BLL.Services;
+using BeautySalonExpolorer.DAL.Interfaces;
 using BeautySalonExpolorer.DAL.Persistence;
 using BeautySalonExpolorer.DAL.Persistence.Seed;
+using BeautySalonExpolorer.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +14,13 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 });
 
+builder.Services.AddControllers();
+
 builder.Services.AddOpenApi();
+builder.Services.AddScoped<ISalonRepository, SalonRepository>();
+builder.Services.AddScoped<ISalonService, SalonService>();
+
+
 
 var app = builder.Build();
 
@@ -30,6 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 
 app.Run();

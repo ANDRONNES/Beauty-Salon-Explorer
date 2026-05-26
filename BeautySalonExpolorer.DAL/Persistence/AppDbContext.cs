@@ -7,11 +7,11 @@ public class AppDbContext: DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
 
-    public DbSet<Business> Businesses { get; set; }
+    public DbSet<Salon> Salons { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Service> Services { get; set; }
-    public DbSet<BusinessService> BusinessServices { get; set; }
-    public DbSet<BusinessCategory> BusinessCategories { get; set; }
+    public DbSet<SalonService> SalonsServices { get; set; }
+    public DbSet<SalonCategory> SalonsCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

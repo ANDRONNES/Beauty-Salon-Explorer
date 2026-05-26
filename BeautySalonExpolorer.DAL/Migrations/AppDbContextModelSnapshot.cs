@@ -22,12 +22,31 @@ namespace BeautySalonExpolorer.DAL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Business", b =>
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Category", b =>
                 {
-                    b.Property<Guid>("BusinessId")
+                    b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("business_id");
+                        .HasColumnName("category_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
+
+                    b.HasKey("CategoryId")
+                        .HasName("pk_category");
+
+                    b.ToTable("category", (string)null);
+                });
+
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Salon", b =>
+                {
+                    b.Property<Guid>("SalonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("salon_id");
 
                     b.Property<string>("District")
                         .IsRequired()
@@ -70,36 +89,36 @@ namespace BeautySalonExpolorer.DAL.Migrations
                         .HasColumnType("character varying(500)")
                         .HasColumnName("website");
 
-                    b.HasKey("BusinessId")
-                        .HasName("pk_business");
+                    b.HasKey("SalonId")
+                        .HasName("pk_salon");
 
-                    b.ToTable("business", (string)null);
+                    b.ToTable("salon", (string)null);
                 });
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.BusinessCategory", b =>
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.SalonCategory", b =>
                 {
-                    b.Property<Guid>("BusinessId")
+                    b.Property<Guid>("SalonId")
                         .HasColumnType("uuid")
-                        .HasColumnName("business_id");
+                        .HasColumnName("salon_id");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid")
                         .HasColumnName("category_id");
 
-                    b.HasKey("BusinessId", "CategoryId")
-                        .HasName("pk_businesscategory");
+                    b.HasKey("SalonId", "CategoryId")
+                        .HasName("pk_saloncategory");
 
                     b.HasIndex("CategoryId")
-                        .HasDatabaseName("ix_businesscategory_category_id");
+                        .HasDatabaseName("ix_saloncategory_category_id");
 
-                    b.ToTable("businesscategory", (string)null);
+                    b.ToTable("saloncategory", (string)null);
                 });
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.BusinessService", b =>
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.SalonService", b =>
                 {
-                    b.Property<Guid>("BusinessId")
+                    b.Property<Guid>("SalonId")
                         .HasColumnType("uuid")
-                        .HasColumnName("business_id");
+                        .HasColumnName("salon_id");
 
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uuid")
@@ -109,32 +128,13 @@ namespace BeautySalonExpolorer.DAL.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("price");
 
-                    b.HasKey("BusinessId", "ServiceId")
-                        .HasName("pk_businessservice");
+                    b.HasKey("SalonId", "ServiceId")
+                        .HasName("pk_salonservice");
 
                     b.HasIndex("ServiceId")
-                        .HasDatabaseName("ix_businessservice_service_id");
+                        .HasDatabaseName("ix_salonservice_service_id");
 
-                    b.ToTable("businessservice", (string)null);
-                });
-
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Category", b =>
-                {
-                    b.Property<Guid>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("category_id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("name");
-
-                    b.HasKey("CategoryId")
-                        .HasName("pk_category");
-
-                    b.ToTable("category", (string)null);
+                    b.ToTable("salonservice", (string)null);
                 });
 
             modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Service", b =>
@@ -156,63 +156,63 @@ namespace BeautySalonExpolorer.DAL.Migrations
                     b.ToTable("service", (string)null);
                 });
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.BusinessCategory", b =>
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.SalonCategory", b =>
                 {
-                    b.HasOne("BeautySalonExpolorer.DAL.Entities.Business", "Business")
-                        .WithMany("Categories")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_businesscategory_business_business_id");
-
                     b.HasOne("BeautySalonExpolorer.DAL.Entities.Category", "Category")
-                        .WithMany("Businesses")
+                        .WithMany("Salons")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_businesscategory_categories_category_id");
+                        .HasConstraintName("fk_saloncategory_category_category_id");
 
-                    b.Navigation("Business");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.BusinessService", b =>
-                {
-                    b.HasOne("BeautySalonExpolorer.DAL.Entities.Business", "Business")
-                        .WithMany("Services")
-                        .HasForeignKey("BusinessId")
+                    b.HasOne("BeautySalonExpolorer.DAL.Entities.Salon", "Salon")
+                        .WithMany("Categories")
+                        .HasForeignKey("SalonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_businessservice_business_business_id");
+                        .HasConstraintName("fk_saloncategory_salon_salon_id");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Salon");
+                });
+
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.SalonService", b =>
+                {
+                    b.HasOne("BeautySalonExpolorer.DAL.Entities.Salon", "Salon")
+                        .WithMany("Services")
+                        .HasForeignKey("SalonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_salonservice_salon_salon_id");
 
                     b.HasOne("BeautySalonExpolorer.DAL.Entities.Service", "Service")
-                        .WithMany("Businesses")
+                        .WithMany("Salons")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_businessservice_services_service_id");
+                        .HasConstraintName("fk_salonservice_services_service_id");
 
-                    b.Navigation("Business");
+                    b.Navigation("Salon");
 
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Business", b =>
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Category", b =>
+                {
+                    b.Navigation("Salons");
+                });
+
+            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Salon", b =>
                 {
                     b.Navigation("Categories");
 
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Category", b =>
-                {
-                    b.Navigation("Businesses");
-                });
-
             modelBuilder.Entity("BeautySalonExpolorer.DAL.Entities.Service", b =>
                 {
-                    b.Navigation("Businesses");
+                    b.Navigation("Salons");
                 });
 #pragma warning restore 612, 618
         }
