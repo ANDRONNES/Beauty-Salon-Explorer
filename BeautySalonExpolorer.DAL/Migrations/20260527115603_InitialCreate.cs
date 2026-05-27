@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BeautySalonExpolorer.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,8 @@ namespace BeautySalonExpolorer.DAL.Migrations
                     website = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     rating = table.Column<decimal>(type: "numeric(2,1)", nullable: true),
                     reviews_count = table.Column<int>(type: "integer", nullable: true),
-                    location_url = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
+                    location_url = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    image_url = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false)
                 },
                 constraints: table =>
                 {

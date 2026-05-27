@@ -6,6 +6,6 @@ public class SalonService
     public Guid SalonId { get; set; }
     public decimal? Price { get; set; }
 
-    public Service Service { get; set;} = null!;
-    public Salon Salon { get; set;} = null!;
+    public Service Service { get; set; } = null!;
+    public Salon Salon { get; set; } = null!;
 }

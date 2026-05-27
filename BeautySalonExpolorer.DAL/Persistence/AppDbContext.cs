@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeautySalonExpolorer.DAL.Persistence;
 
-public class AppDbContext: DbContext
+public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Salon> Salons { get; set; }
     public DbSet<Category> Categories { get; set; }
@@ -18,7 +18,7 @@ public class AppDbContext: DbContext
         //applying configurations on every model
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        foreach(var entity in modelBuilder.Model.GetEntityTypes())
+        foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             entity.SetTableName(entity.DisplayName().ToLower());
         }

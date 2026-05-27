@@ -54,6 +54,12 @@ namespace BeautySalonExpolorer.DAL.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("district");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("image_url");
+
                     b.Property<string>("LocationUrl")
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)")

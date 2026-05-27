@@ -1,4 +1,5 @@
 using BeautySalonExpolorer.BLL.DTOs;
+using BeautySalonExpolorer.BLL.Exceptions;
 using BeautySalonExpolorer.BLL.Interfaces;
 using BeautySalonExpolorer.DAL.Entities;
 using BeautySalonExpolorer.DAL.Interfaces;
@@ -12,16 +13,20 @@ public class SalonService : ISalonService
     private readonly IValidator<UpdateSalonDTO> _validator;
     public SalonService(ISalonRepository salonRepo, IValidator<UpdateSalonDTO> validator)
     {
-        _salonRepo = salonRepo;   
+        _salonRepo = salonRepo;
         _validator = validator;
     }
 
-    public async Task<SalonDTO?> GetSalonAsync(Guid id)
+    public async Task<SalonDTO> GetSalonAsync(Guid id)
     {
         var salon = await _salonRepo.GetSalonAsync(id);
 
-        if(salon == null) return null;
-        
+        if (salon == null)
+        {
+            throw new NotFoundException($"Salon with id {id} Not Found");
+        }
+        ;
+
         return new SalonDTO
         {
             SalonId = salon.SalonId,
@@ -33,6 +38,7 @@ public class SalonService : ISalonService
             Rating = salon.Rating,
             ReviewsCount = salon.ReviewsCount,
             LocationUrl = salon.LocationUrl,
+            ImageUrl = salon.ImageUrl,
             Categories = salon.Categories
                 .Select(sc => sc.Category.Name)
                 .ToList()
@@ -42,30 +48,35 @@ public class SalonService : ISalonService
     public async Task<IEnumerable<SalonListDTO>> GetSalonListAsync()
     {
         var businesses = await _salonRepo.GetSalonListAsync();
-        
+
         return businesses.Select(s => new SalonListDTO
         {
             SalonId = s.SalonId,
             Name = s.Name,
             ShortAddress = $"{s.Street}, {s.District}",
             Rating = s.Rating,
+            ImageUrl = s.ImageUrl,
             Categories = s.Categories
                 .Select(sc => sc.Category.Name)
                 .ToList()
         });
     }
 
-    public async Task<bool> UpdateSalonAsync(Guid id, UpdateSalonDTO dto)
+    public async Task UpdateSalonAsync(Guid id, UpdateSalonDTO dto)
     {
         await _validator.ValidateAndThrowAsync(dto);
 
         var salon = await _salonRepo.GetSalonAsync(id);
-        if (salon == null) return false;
+        if (salon == null)
+        {
+            throw new NotFoundException($"Salon with id {id} Not Found");
+        }
+        ;
 
         var existingCategories = await _salonRepo.GetCategoriesByNamesAsync(dto.Categories);
-        if(existingCategories.Count != dto.Categories.Count)
+        if (existingCategories.Count != dto.Categories.Count)
         {
-            throw new Exception("Bad request");
+            throw new BadRequestException("Some passed categories are not in database");
         }
 
         salon.Name = dto.Name ?? salon.Name;
@@ -74,11 +85,12 @@ public class SalonService : ISalonService
         salon.Phone = dto.Phone ?? salon.Phone;
         salon.Website = dto.Website ?? salon.Website;
         salon.LocationUrl = dto.LocationUrl ?? salon.LocationUrl;
+        salon.ImageUrl = dto.ImageUrl ?? salon.ImageUrl;
 
 
         salon.Categories.Clear();
-                
-        foreach(var category in existingCategories)
+
+        foreach (var category in existingCategories)
         {
             salon.Categories.Add(new SalonCategory
             {
@@ -88,6 +100,5 @@ public class SalonService : ISalonService
         }
 
         await _salonRepo.UpdateSalonAsync();
-        return true;
     }
 }

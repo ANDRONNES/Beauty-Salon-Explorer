@@ -28,6 +28,9 @@ public class SalonJsonDTO
     [JsonPropertyName("url")]
     public string? LocationUrl { get; set; }
 
-    [JsonPropertyName("district")]
+    [JsonPropertyName("neighborhood")]
     public required string District { get; set; }
+
+    [JsonPropertyName("imageUrl")]
+    public required string ImageUrl { get; set; }
 }

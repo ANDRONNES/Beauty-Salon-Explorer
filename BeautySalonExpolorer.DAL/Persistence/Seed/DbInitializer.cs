@@ -17,15 +17,15 @@ public class DbInitializer
         if (!await context.Salons.AnyAsync())
         {
             var jsonString = await File.ReadAllTextAsync(jsonFilePath);
-            var options = new JsonSerializerOptions {PropertyNameCaseInsensitive = true};
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var salonDtos = JsonSerializer.Deserialize<List<SalonJsonDTO>>(jsonString, options);
 
-            if(salonDtos == null || !salonDtos.Any())
+            if (salonDtos == null || !salonDtos.Any())
             {
                 Console.WriteLine("Error extracting data from json");
                 return;
-            } 
-            
+            }
+
             var categoryCache = new Dictionary<string, Category>();
 
             foreach (var dto in salonDtos)
@@ -37,9 +37,10 @@ public class DbInitializer
                     District = dto.District,
                     Phone = dto.Phone,
                     Website = dto.Website,
-                    Rating = dto.TotalScore.HasValue ? (decimal) dto.TotalScore.Value : null,
+                    Rating = dto.TotalScore.HasValue ? (decimal)dto.TotalScore.Value : null,
                     ReviewsCount = dto.ReviewsCount.HasValue ? (int)dto.ReviewsCount.Value : null,
                     LocationUrl = dto.LocationUrl,
+                    ImageUrl = dto.ImageUrl,
                 };
 
                 context.Add(salon);
@@ -48,7 +49,7 @@ public class DbInitializer
                 {
                     if (string.IsNullOrWhiteSpace(categoryName)) continue;
 
-                    if(!categoryCache.TryGetValue(categoryName, out var category))
+                    if (!categoryCache.TryGetValue(categoryName, out var category))
                     {
                         category = await context.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
 

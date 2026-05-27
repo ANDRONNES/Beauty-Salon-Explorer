@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using BeautySalonExpolorer.DAL.Persistence.Seed;
 
 namespace Microsoft.Extensions.DependencyInjection;
+
 public static class DataAccessExtension
 {
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services, IConfiguration configuration)
@@ -17,7 +18,7 @@ public static class DataAccessExtension
         });
 
         services.AddScoped<ISalonRepository, SalonRepository>();
-        
+
         return services;
     }
 
@@ -30,15 +31,15 @@ public static class DataAccessExtension
             {
                 var context = services.GetRequiredService<AppDbContext>();
                 await context.Database.MigrateAsync();
-                string jsonPath = Path.Combine(AppContext.BaseDirectory, "enriched_salons.json");
-                if (!File.Exists(jsonPath)) jsonPath = "enriched_salons.json";
+                string jsonPath = Path.Combine(AppContext.BaseDirectory, "final.json");
+                if (!File.Exists(jsonPath)) jsonPath = "final.json";
 
                 await DbInitializer.SeedDataAsync(context, jsonPath);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Database error: {ex.Message}");
-                throw; 
+                throw;
             }
         }
     }

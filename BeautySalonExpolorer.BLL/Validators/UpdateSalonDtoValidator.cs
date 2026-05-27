@@ -34,6 +34,13 @@ public class UpdateSalonDtoValidator : AbstractValidator<UpdateSalonDTO>
 
         RuleFor(x => x.Categories)
             .NotEmpty().WithMessage("Salon must have at least one category.");
-        
+
+        RuleFor(x => x.ImageUrl)
+            .MaximumLength(500)
+                .WithMessage("Image url couldn't be longer that 500 characters")
+            .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out var parsedUri)
+            && (parsedUri.Scheme == Uri.UriSchemeHttp || parsedUri.Scheme == Uri.UriSchemeHttps))
+            .WithMessage("Ivalid format image url.")
+            .When(x => !string.IsNullOrEmpty(x.ImageUrl));
     }
 }

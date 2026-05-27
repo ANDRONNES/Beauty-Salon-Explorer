@@ -8,7 +8,7 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Salon>
 {
     public void Configure(EntityTypeBuilder<Salon> builder)
     {
-        builder.HasKey(s => s.SalonId); 
+        builder.HasKey(s => s.SalonId);
 
         builder.Property(s => s.Name)
             .IsRequired()
@@ -22,7 +22,7 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Salon>
 
         builder.Property(s => s.Phone)
             .HasMaxLength(30)
-            .IsRequired(false); 
+            .IsRequired(false);
 
         builder.Property(s => s.Website)
             .HasMaxLength(500)
@@ -31,9 +31,12 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Salon>
         builder.Property(s => s.Rating)
             .HasColumnType("decimal(2,1)")
             .IsRequired(false);
-            
+
         builder.Property(s => s.LocationUrl)
             .HasMaxLength(500)
             .IsRequired(false);
+
+        builder.Property(s => s.ImageUrl)
+            .HasMaxLength(500);
     }
 }

@@ -27,9 +27,9 @@ public class SalonsController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateById([FromRoute] Guid id,[FromBody] UpdateSalonDTO dto )
+    public async Task<IActionResult> UpdateById([FromRoute] Guid id, [FromBody] UpdateSalonDTO dto)
     {
-        var isUpdated = await _salonService.UpdateSalonAsync(id, dto);
-        return isUpdated? NoContent() : NotFound();
+        await _salonService.UpdateSalonAsync(id, dto);
+        return NoContent();
     }
 }
