@@ -6,10 +6,12 @@ import agent from "../agent";
 export function useSalon(id: string | undefined) {
     const [salon, setSalon] = useState<SalonDetails | null>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!id) {
             setLoading(false);
+            setError("Salon Not Found")
             return;
         }
 
@@ -19,7 +21,8 @@ export function useSalon(id: string | undefined) {
                 const res = await agent.get<SalonDetails>(`/salons/${id}`);
                 setSalon(res.data);
             } catch (error) {
-                console.error("Ошибка при загрузке деталей салона:", error);
+                console.error("error loading salons info", error);
+                setError("An error has occurred.")
             } finally {
                 setLoading(false);
             }
@@ -28,5 +31,5 @@ export function useSalon(id: string | undefined) {
         fetchSalon();
     }, [id]);
 
-    return { salon, loading };
+    return { salon, loading, error };
 }

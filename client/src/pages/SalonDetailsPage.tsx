@@ -4,7 +4,7 @@ import "../styles/SalonDetailsPage.css";
 
 export default function SalonDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const { salon, loading } = useSalon(id);
+  const { salon, loading, error } = useSalon(id);
 
   if (loading) {
     return (
@@ -14,10 +14,10 @@ export default function SalonDetailsPage() {
     );
   }
 
-  if (!salon) {
+  if (error || !salon) {
     return (
       <div className="div-error">
-        <h2>❌ Not Found</h2>
+        <h2>❌ {error}</h2>
         <Link to="/salons" className="error-link">
           Return to salons
         </Link>

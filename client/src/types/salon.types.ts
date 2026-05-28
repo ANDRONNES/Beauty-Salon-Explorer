@@ -15,3 +15,16 @@ export interface SalonDetails extends SalonSummary {
   reviewsCount: number | null,
   locationUrl: string | null,
 }
+
+
+export interface UpdateSalonDTO {
+  salonId: string;
+  name: string;
+  street: string;
+  district: string;
+  phone: string | null;
+  website: string | null;
+  locationUrl: string | null;
+  imageUrl: string;
+  categories: string[];
+}

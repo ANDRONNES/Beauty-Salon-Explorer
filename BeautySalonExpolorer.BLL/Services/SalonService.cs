@@ -79,13 +79,13 @@ public class SalonService : ISalonService
             throw new BadRequestException("Some passed categories are not in database");
         }
 
-        salon.Name = dto.Name ?? salon.Name;
-        salon.Street = dto.Street ?? salon.Street;
-        salon.District = dto.District ?? salon.District;
-        salon.Phone = dto.Phone ?? salon.Phone;
-        salon.Website = dto.Website ?? salon.Website;
-        salon.LocationUrl = dto.LocationUrl ?? salon.LocationUrl;
-        salon.ImageUrl = dto.ImageUrl ?? salon.ImageUrl;
+        salon.Name = dto.Name;
+        salon.Street = dto.Street;
+        salon.District = dto.District;
+        salon.Phone = dto.Phone;
+        salon.Website = dto.Website;
+        salon.LocationUrl = dto.LocationUrl;
+        salon.ImageUrl = dto.ImageUrl;
 
 
         salon.Categories.Clear();
