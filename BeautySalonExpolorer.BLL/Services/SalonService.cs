@@ -53,7 +53,8 @@ public class SalonService : ISalonService
         {
             SalonId = s.SalonId,
             Name = s.Name,
-            ShortAddress = $"{s.Street}, {s.District}",
+            Street = s.Street,
+            District = s.District,
             Rating = s.Rating,
             ImageUrl = s.ImageUrl,
             Categories = s.Categories
