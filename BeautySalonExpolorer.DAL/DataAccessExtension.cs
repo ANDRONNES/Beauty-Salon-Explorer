@@ -13,7 +13,7 @@ public static class DataAccessExtension
     {
         services.AddDbContext<AppDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+            options.UseNpgsql(configuration.GetConnectionString("Default"))
                 .UseSnakeCaseNamingConvention();
         });
 

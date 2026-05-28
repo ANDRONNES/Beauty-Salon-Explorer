@@ -140,7 +140,7 @@ export default function UpdateSalonForm() {
 
         <div className="form-group" style={{ marginBottom: "50px" }}>
           <label className="form-label">Categories *</label>
-          
+
           <Controller
             name="categories"
             control={control}
@@ -154,15 +154,23 @@ export default function UpdateSalonForm() {
                 classNamePrefix="react-select"
                 name={name}
                 onBlur={onBlur}
-                value={categoryOptions.filter(c => value && value.includes(c.value))}
+                value={categoryOptions.filter(
+                  (c) => value && value.includes(c.value),
+                )}
                 onChange={(selectedOptions) => {
-                  onChange(selectedOptions ? selectedOptions.map(option => option.value) : []);
+                  onChange(
+                    selectedOptions
+                      ? selectedOptions.map((option) => option.value)
+                      : [],
+                  );
                 }}
               />
             )}
           />
-          
-          {errors.categories && <span className="input-error">{errors.categories.message}</span>}
+
+          {errors.categories && (
+            <span className="input-error">{errors.categories.message}</span>
+          )}
         </div>
 
         <button type="submit" disabled={isSubmitting} className="submit-button">
