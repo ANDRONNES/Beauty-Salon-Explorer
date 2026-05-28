@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using BeautySalonExpolorer.BLL.DTOs;
 using FluentValidation;
 
@@ -19,7 +20,7 @@ public class UpdateSalonDtoValidator : AbstractValidator<UpdateSalonDTO>
             .NotEmpty().WithMessage("District is required.");
 
         RuleFor(x => x.Phone)
-            .Matches(@"^\+?[1-9]\d{1,14}$").WithMessage("Invalid phone number format.")
+            .Must(BeValidPhone).WithMessage("Invalid phone number format.")
             .When(x => !string.IsNullOrEmpty(x.Phone));
 
         RuleFor(x => x.Website)
@@ -42,5 +43,18 @@ public class UpdateSalonDtoValidator : AbstractValidator<UpdateSalonDTO>
             && (parsedUri.Scheme == Uri.UriSchemeHttp || parsedUri.Scheme == Uri.UriSchemeHttps))
             .WithMessage("Ivalid format image url.")
             .When(x => !string.IsNullOrEmpty(x.ImageUrl));
+    }
+
+    private bool BeValidPhone(string? phone)
+    {
+        if (string.IsNullOrWhiteSpace(phone))
+            return true;
+
+        var normalized = Regex.Replace(phone, @"[\s\-\(\)]", "");
+
+        return Regex.IsMatch(
+            normalized,
+            @"^(\+48\d{9}|48\d{9}|\d{9})$"
+        );
     }
 }

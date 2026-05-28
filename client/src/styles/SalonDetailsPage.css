@@ -148,3 +148,26 @@
 .info-link:hover {
     text-decoration: underline;
 }
+
+.edit-link-box {
+    display: flex;    
+    justify-content: center; 
+    width: 100%;
+    margin-top: 20px;     
+}
+.edit-link {
+    padding: 10px 20px;
+    background-color: #005522;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-flex;   
+    align-items: center;    
+    gap: 8px;              
+    transition: background-color 0.2s ease;
+}
+
+.edit-link:hover {
+    background-color: #00441b; 
+}

@@ -104,6 +104,11 @@ export default function SalonDetailsPage() {
               )}
             </div>
           </div>
+          <div className="edit-link-box">
+            <Link className="edit-link" to={`/salons/${salon.salonId}/edit`}>
+              ✏️ Edit
+            </Link>
+          </div>
         </div>
       </div>
     </div>

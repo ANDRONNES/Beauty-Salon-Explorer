@@ -52,7 +52,7 @@ public class GlobalExceptionHandlingMiddleware
 
                 response = new
                 {
-                    Message = "Validation data error",
+                    Message = validationException.Message,
                     Errors = (object?)validationErrors
                 };
 

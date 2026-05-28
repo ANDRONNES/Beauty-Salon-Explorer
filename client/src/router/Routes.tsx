@@ -3,6 +3,7 @@ import App from "../App";
 import HomePage from "../pages/HomePage";
 import SalonDashboard from "../pages/SalonDashboard";
 import SalonDetailsPage from "../pages/SalonDetailsPage";
+import UpdateSalonForm from "../pages/UpdateSalonFormPage";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "salons", element: <SalonDashboard /> },
       { path: "salons/:id", element: <SalonDetailsPage /> },
-      // {path: "edit/:id", element: <SalonEditForm />},
+      {path: "salons/:id/edit", element: <UpdateSalonForm />},
       { path: "*", element: <Navigate replace to="" /> },
     ],
   },

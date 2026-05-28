@@ -1,0 +1,87 @@
+.update-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    font-family: sans-serif;
+}
+
+
+.back-link:hover {
+    color: #005522;
+}
+
+.form-title {
+    margin-bottom: 20px;
+    color: #E6C594;
+    align-self: flex-start;
+}
+
+.global-error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.salon-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #E6C594;
+}
+
+.form-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #005522;
+}
+
+.input-error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.submit-button {
+    padding: 15px;
+    background-color: #A36A3F;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 1.05rem;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #8B5A33;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+}
