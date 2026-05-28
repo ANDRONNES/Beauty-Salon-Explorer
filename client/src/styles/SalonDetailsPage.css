@@ -1,0 +1,150 @@
+.card-box {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: sans-serif;
+}
+
+.div-loading,
+.div-error {
+    text-align: center;
+    padding: 50px;
+}
+
+.div-error h2 {
+    color: red;
+}
+
+.error-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #A36A3F;
+    text-decoration: underline;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #A36A3F;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.back-link:hover,
+.error-link:hover {
+    color: #8B5A33;
+}
+
+.salon-card {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.salon-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.salon-image-placeholder {
+    width: 100%;
+    height: 150px;
+    background-color: #005522;
+}
+
+.salon-content {
+    padding: 40px;
+}
+
+.salon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.salon-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.salon-rating-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+}
+
+.rating-score {
+    font-weight: 800;
+    color: #D4AF37;
+    background-color: #FFF9E6;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.rating-divider {
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+.reviews-count {
+    color: #888;
+    font-weight: 500;
+}
+
+.no-rating {
+    color: #A36A3F;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.salon-categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-badge {
+    background-color: #eee;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.salon-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.info-section h3 {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.info-section p {
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+}
+
+.info-link {
+    color: #005522;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.info-link:hover {
+    text-decoration: underline;
+}

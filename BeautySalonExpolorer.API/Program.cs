@@ -9,6 +9,8 @@ builder.Services.AddDataAccessLayer(builder.Configuration);
 
 builder.Services.AddBusinessLogicLayer();
 
+builder.Services.AddCors();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -21,6 +23,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173"));
 
 app.UseHttpsRedirection();
 

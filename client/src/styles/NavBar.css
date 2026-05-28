@@ -1,0 +1,45 @@
+.nav {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#logo {
+    height: 50px;
+    width: auto;
+
+    cursor: pointer;
+}
+
+.socials {
+    display: flex;
+    gap: 2rem;
+}
+
+.socials a {
+    text-decoration: none;
+    color: #E6C594;
+}
+
+.socials a:hover {
+    opacity: 0.8;
+}
+
+.social-icon {
+    height: 32px;
+    width: 32px;
+
+    object-fit: contain;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
