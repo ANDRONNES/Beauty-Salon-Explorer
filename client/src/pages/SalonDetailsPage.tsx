@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { useSalon } from "../api/hooks/useSalon";
 import "../styles/SalonDetailsPage.css";
+import { useState } from "react";
 
 export default function SalonDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const { salon, loading, error } = useSalon(id);
-
+  const [imageFailed, setImageFailed] = useState(false);
   if (loading) {
     return (
       <div className="div-loading">
@@ -32,11 +33,19 @@ export default function SalonDetailsPage() {
       </Link>
 
       <div className="salon-card">
-        {salon.imageUrl ? (
-          <img src={salon.imageUrl} alt={salon.name} className="salon-image" />
-        ) : (
-          <div className="salon-image-placeholder" />
-        )}
+        {salon.imageUrl && (
+                <img
+                  className="salon-image"
+                  src={
+                  imageFailed 
+                    ? "https://placehold.co/800x400/eeeeee/999999?text=No+Image+Available"
+                    : salon.imageUrl
+                }
+                  alt={salon.name}
+                  referrerPolicy="no-referrer"
+                  onError={() => setImageFailed(true)}
+                />
+              )}
 
         <div className="salon-content">
           <div className="salon-header">

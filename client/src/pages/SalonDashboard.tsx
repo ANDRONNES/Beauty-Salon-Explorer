@@ -5,7 +5,6 @@ import "../styles/SalonDashboard.css";
 
 export default function SalonDashboard() {
   const { salons, loading, error } = useSalons();
-
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
@@ -82,6 +81,11 @@ export default function SalonDashboard() {
                   className="card-img"
                   src={salon.imageUrl}
                   alt={salon.name}
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "https://placehold.co/600x400/eeeeee/999999?text=No+Image+Available";
+                  }}
                 />
               )}
 
